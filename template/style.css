@@ -1,0 +1,147 @@
+html{
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    height: 100vh;
+    font-size: 1.6rem;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+/*Layout*/
+.grid-container{
+    display: grid;
+    grid-template-areas:
+    'header'
+    'main'
+    'footer';
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem 1fr 5rem;
+    height: 100%;
+}
+header{
+    grid-area: header;
+    background-color: #0075B5;
+}
+main{
+    grid-area: main;
+    padding: 1rem;
+}
+footer{
+    grid-area: footer;
+    background-color: #0075B5;
+    color: floralwhite;
+}
+
+/*Common classes*/
+a{
+    text-decoration: none;
+}
+a:hover{
+    color: #00316E;
+}
+
+/*Header*/
+header a{
+    color: floralwhite;
+    padding: 3rem;
+}
+a.brand{
+    color: floralwhite;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.row.center{
+    justify-content:  center;
+}
+
+/*Image*/
+img{
+    border-radius: 0rem;
+    width: 200px;
+    height: 140px;
+}
+img.medium{
+    max-width: 29rem;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/*CARD*/
+.card{
+    display: grid;
+    grid-template-columns: 200px;
+    grid-template-rows: 140px 70px 70px;
+    grid-template-areas: 
+    'image' 
+    'text'
+    'stats';
+
+    font-family: reboto;
+    border-radius: 18px;
+    background: white;
+    box-shadow: grey;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+    transition: 0.1s ease;
+    cursor: pointer;
+
+    margin: 1rem ;
+}
+.card-text{
+    grid-area: text;
+    margin: 19px;
+}
+.card-text .date{
+    color:  grey;
+    font-size: 15px;
+}
+/*.card-text p{
+    color: grey;
+    font-size: 15px;
+    font-weight: 300;
+}*/
+.card-text h2{
+    margin-top: 0px;
+    font-size: 14px;
+}
+.card-stats{
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background:  #0075B5;
+}
+.card-stats .stat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: white;
+}
+.card-stats .type{
+    font-size: 9px;
+    font-weight: 300;
+    color: rgb(255, 255, 255);
+}
+.card-stats .value{
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+.card:hover{
+    transform: scale(1.01);
+    box-shadow: 5px 5px 15px;
+}
+
