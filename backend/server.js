@@ -1,26 +1,40 @@
 import express from 'express';
-import data from './data.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import path from 'path';
+import internshipRouter from './routers/internshipRouter.js';
+import userRouter from './routers/userRouter.js';
+import uploadRouter from './routers/uploadRouter.js';
+
+dotenv.config();
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/internships/:id', (req, res) =>{
-    const internship = data.internships.find(x => x._id === req.params.id);
-    if(internship){
-        res.send(internship);
-    }else {
-        res.status(404).send({message:'Internship not found'});
-    }
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/intern', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
 });
+app.use('/api/uploads', uploadRouter);
+app.use('/api/users', userRouter);
+app.use('/api/internships', internshipRouter);
 
-app.get('/api/internships', (req, res) =>{
-    res.send(data.internships);
-});
 
-app.get('/', (req, res) =>{
-    res.send('Server is ready');
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+ app.get('/', (req, res) => {
+   res.send('Server is ready');
+ });
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
 });
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-    console.log(`Serve at http://localhost:${port}`);
+  console.log(`Serve at http://localhost:${port}`);
 });

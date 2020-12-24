@@ -1,9 +1,23 @@
+import bcrypt from 'bcryptjs';
+
 const data = {
+    users: [
+        {
+          name: 'Manel Jose',
+          email: 'admin@example.com',
+          password: bcrypt.hashSync('1234', 8),
+          isAdmin: true,
+        },
+        {
+          name: 'John',
+          email: 'user@example.com',
+          password: bcrypt.hashSync('1234', 8),
+          isAdmin: false,
+        },
+      ],
     internships:[
         {
-            _id:'1',
             name:'Support Engineer Intern',
-            category: 'Part-time',
             image: '../images/micrologo1.jpg',
             company: 'Microsoft',
             location: 'Lisbon',
@@ -14,9 +28,7 @@ const data = {
             description: 'Bla Bla Bla Bla',
         },
         {
-            _id:'2',
             name:'Data Analyst Intern',
-            category: 'Part-time',
             image: '../images/amazon.png',
             company: 'Amazon',
             location: 'Porto',
@@ -27,9 +39,7 @@ const data = {
             description: 'Bla Bla Bla Bla',
         },
         {
-            _id:'3',
             name:'Bussiness Analyst Intern',
-            category: 'Part-time',
             image: '../images/cisco.jpeg',
             company: 'Cisco',
             location: 'Aveiro',
@@ -40,9 +50,7 @@ const data = {
             description: 'Bla Bla Bla Bla Bla Bla Bla',
         },
         {
-            _id:'4',
             name:'Strategic Sales Intern',
-            category: 'Part-time',
             image: '../images/google.png',
             company: 'Google',
             location: 'Faro',
@@ -53,9 +61,7 @@ const data = {
             description: 'Bla Bla Bla Bla Bla',
         },
         {
-            _id:'5',
             name:'Project Manager Intern',
-            category: 'Part-time',
             image: '../images/sonae.png',
             company: 'Sonae',
             location: 'Lisbon',
@@ -66,9 +72,7 @@ const data = {
             description: 'Bla Bla Bla Bla Bla',
         },
         {
-            _id:'6',
             name:'RH Intern',
-            category: 'Part-time',
             image: '../images/NOS.png',
             company: 'NOS',
             location: 'Lisboa',
