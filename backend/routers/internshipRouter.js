@@ -2,8 +2,38 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Internship from '../models/internshipModel.js';
 import { isAdmin, isAuth } from '../utilities.js';
+import data from '../data.js'
 
 const internshipRouter = express.Router();
+
+internshipRouter.get(
+  '/',
+  expressAsyncHandler(async (req, res) => {
+    const internships = await Internship.find({});
+    res.send(internships);
+  })
+);
+
+internshipRouter.get(
+  '/seed',
+  expressAsyncHandler(async (req, res) => {
+    // await Internship.remove({});
+    const createdInternship = await Internship.insertMany(data.internships);
+    res.send({ createdInternship });
+  })
+);
+
+internshipRouter.get(
+  '/:id',
+  expressAsyncHandler(async (req, res) => {
+    const internship = await Internship.findById(req.params.id);
+    if (internship) {
+      res.send(internship);
+    } else {
+      res.status(404).send({ message: 'Internship Not Found' });
+    }
+  })
+);
 
 internshipRouter.post(
   '/',
@@ -25,6 +55,7 @@ internshipRouter.post(
     res.send({ message: 'Internship Created', internship: createdInternship });
   })
 );
+
 internshipRouter.put(
   '/:id',
   isAuth,
@@ -43,7 +74,7 @@ internshipRouter.put(
         internship.date = req.body.date;
         internship.description = req.body.description;
       const updatedInternship = await internship.save();
-      res.send({ message: 'Internship Updated', product: updatedInternship });
+      res.send({ message: 'Internship Updated', internship: updatedInternship });
     } else {
       res.status(404).send({ message: 'Internship Not Found' });
     }
@@ -58,7 +89,7 @@ internshipRouter.delete(
     const internship = await Internship.findById(req.params.id);
     if (internship) {
       const deleteInternship = await internship.remove();
-      res.send({ message: 'Internship Deleted', product: deleteInternship });
+      res.send({ message: 'Internship Deleted', internship: deleteInternship });
     } else {
       res.status(404).send({ message: 'Internship Not Found' });
     }
